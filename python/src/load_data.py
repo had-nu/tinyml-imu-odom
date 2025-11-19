@@ -12,9 +12,12 @@ Initial exploration script for MAGF-ID ROSBOT data (Project 1).
 
 import os
 from pathlib import Path
+from typing import Dict, List, Tuple
+
 import pandas as pd
 import numpy as np
 
+# ======================== CONFIGURAÇÃO DE CAMINHOS ========================
 BASE_DIR = Path(__file__).resolve().parent
 DATA_ROOT = (BASE_DIR / "../../data/raw/MAGF_ID_code_Data").resolve()
 DATA_DIR = DATA_ROOT / "Data"
@@ -29,7 +32,7 @@ DOTS_DIR = 'DOTs'
 
 DOTS_SUBDIRS_EXPECTED = ["Ceiling", "Top", "Bottom"]
 
-
+# ======================== FUNÇÕES ========================
 def dir_verify() -> None:
     print("=" * 70)
     print("VERIFICAÇÃO FINAL DA ESTRUTURA DO DATASET")
@@ -86,12 +89,43 @@ def dir_verify() -> None:
         print("ATENÇÃO: Há pastas ou arquivos faltando. Corrija antes de continuar.")
     print("="*70)
 
+
+def load_mru(conf: str) -> pd.DataFrame:
+    conf_path = PLATFORM_DIR / conf
+    if not conf_path.is_dir():
+        raise FileNotFoundError(f"[ERRO] Configuração não encontrada: {conf_path}")
+
+    path = conf_path / MRU_DIR
+    if not path.is_dir():
+        raise FileNotFoundError(f"[ERRO] Pasta MRU não encontrada: {path}")
+
+    csv_files = list(path.glob("*.csv"))
+
+    if len(csv_files) == 0:
+        raise FileNotFoundError(f"Nenhum CSV encontrado em {path}")
+    if len(csv_files) > 1:
+        print(f"[AVISO] Múltiplos CSVs em {path}. Usando o primeiro: {csv_files[0].name}")
+
+    df = pd.read_csv(csv_files[0])
+    df.name = f"{conf}_MRU"
+    print(f"✓ {df.name}: {df.shape[0]:,} linhas x {df.shape[1]} colunas")
+    return df
+
+
 def main() -> None:
     try:
         dir_verify()
     except Exception as e:
         print(e)
 
+    mru_conf1 = load_mru("Conf_1")
+    print(mru_conf1.head())
+
+    mru_conf2 = load_mru("Conf_2")
+    print(mru_conf2.head())
+
+    mru_conf3 = load_mru("Conf_3")
+    print(mru_conf3.head())
 
 
 if __name__ == "__main__":
