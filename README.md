@@ -2,7 +2,7 @@
 
 > Aprendizagem de odometria baseada em IMU com foco em modelos TinyML e pipeline completo de engenharia.
 
-[![Python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/)
 [![Go](https://img.shields.io/badge/go-1.21-cyan)](https://golang.org/)
 [![Jupyter](https://img.shields.io/badge/jupyter-notebooks-orange)](https://jupyter.org/)
 [![TensorFlow Lite Micro](https://img.shields.io/badge/TFLite-Micro-yellow)](https://www.tensorflow.org/lite/microcontrollers)
@@ -109,9 +109,9 @@ Atualmente na *Fase 1 – Problem Definition* e organização da estrutura docum
 
 Próximos passos:
 
-1. Registrar a definição do problema em `docs/01_problem_definition.md`.  
-2. Documentar aquisição e organização dos dados em `docs/02_data_acquisition.md`.  
-3. Iniciar a análise exploratória no notebook `01_explore_magfid_rosbot.ipynb`.
+ [✓] 1. Registrar a definição do problema em `docs/01_problem_definition.md`.  
+ [ ] 2. Documentar aquisição e organização dos dados em `docs/02_data_acquisition.md`.  
+ [ ] 3. Iniciar a análise exploratória no notebook `01_explore_magfid_rosbot.ipynb`.
 
 ---
 
