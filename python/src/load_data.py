@@ -35,7 +35,7 @@ DOTS_SUBDIRS_EXPECTED = ["Ceiling", "Top", "Bottom"]
 # ======================== FUNÇÕES ========================
 def dir_verify() -> None:
     print("=" * 70)
-    print("VERIFICAÇÃO FINAL DA ESTRUTURA DO DATASET")
+    print("VERIFICAÇÃO DA ESTRUTURA DO DATASET")
     print("=" * 70)
     
     print(f"Script: {BASE_DIR}")
@@ -95,20 +95,21 @@ def load_mru(conf: str) -> pd.DataFrame:
     if not conf_path.is_dir():
         raise FileNotFoundError(f"[ERRO] Configuração não encontrada: {conf_path}")
 
-    path = conf_path / MRU_DIR
-    if not path.is_dir():
-        raise FileNotFoundError(f"[ERRO] Pasta MRU não encontrada: {path}")
+    mru_path = conf_path / MRU_DIR
+    if not mru_path.is_dir():
+        raise FileNotFoundError(f"[ERRO] Pasta MRU não encontrada: {mru_path}")
 
-    csv_files = list(path.glob("*.csv"))
+    csv_files = list(mru_path.glob("*.csv"))
 
     if len(csv_files) == 0:
-        raise FileNotFoundError(f"Nenhum CSV encontrado em {path}")
+        raise FileNotFoundError(f"Nenhum CSV encontrado em {mru_path}")
     if len(csv_files) > 1:
-        print(f"[AVISO] Múltiplos CSVs em {path}. Usando o primeiro: {csv_files[0].name}")
+        print(f"[AVISO] Múltiplos CSVs em {mru_path}. Usando o primeiro: {csv_files[0].name}")
 
     df = pd.read_csv(csv_files[0])
     df.name = f"{conf}_MRU"
     print(f"✓ {df.name}: {df.shape[0]:,} linhas x {df.shape[1]} colunas")
+    
     return df
 
 

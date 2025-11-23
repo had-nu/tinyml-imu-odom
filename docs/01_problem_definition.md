@@ -8,11 +8,11 @@
 
 ## 2. Problema central
 
-Como estimar de forma eficiente e robusta o movimento local de um robô (Δx, Δy, Δθ) utilizando apenas dados de IMU em janelas curtas de tempo, com modelos pequenos o suficiente para execução em plataformas de **TinyML**.
+Como estimar de forma eficiente e robusta o movimento local de um robô (Δx, Δy, Δθ) utilizando apenas dados de IMU em janelas curtas de tempo, com modelos pequenos o suficiente para execução em plataformas de TinyML.
 
 ## 3. Objetivo do projeto
 
-Desenvolver e avaliar um pipeline de **odometria aprendida baseada em IMU**,
+Desenvolver e avaliar um pipeline de *odometria aprendida baseada em IMU*,
 treinado no ROSbot do dataset MAGF-ID, com:
 
 - modelos TinyML (baixo número de parâmetros),
@@ -23,9 +23,9 @@ treinado no ROSbot do dataset MAGF-ID, com:
 
 Incluído:
 
-- Uso do **ROSbot** do MAGF-ID como fonte principal de dados.
-- Treino em **Python** e preparação para exportar modelos para TinyML.
-- Estruturação de um caminho de **deploy em Go**, para uso futuro em robôs físicos.
+- Uso do ROSbot do MAGF-ID como fonte principal de dados.
+- Treino em Python e preparação para exportar modelos para TinyML.
+- Estruturação de um caminho de deploy em Go, para uso futuro em robôs físicos.
 - Foco em Δpose local (incrementos de curta duração), não em SLAM completo.
 
 Excluído (neste projeto):
