@@ -105,7 +105,7 @@ tinyml-imu-odom/
 ## Status
 
 Early-stage.  
-Atualmente na *Fase 1 – Problem Definition* e organização da estrutura documental e experimental.
+Atualmente na *Fase 3: Exploratory Data Analysis (EDA)*.
 
 Próximos passos:
 
