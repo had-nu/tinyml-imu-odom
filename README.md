@@ -110,7 +110,7 @@ Atualmente na *Fase 1 – Problem Definition* e organização da estrutura docum
 Próximos passos:
 
  [✓] 1. Registrar a definição do problema em `docs/01_problem_definition.md`.  
- [ ] 2. Documentar aquisição e organização dos dados em `docs/02_data_acquisition.md`.  
+ [✓] 2. Documentar aquisição e organização dos dados em `docs/02_data_acquisition.md`.  
  [ ] 3. Iniciar a análise exploratória no notebook `01_explore_magfid_rosbot.ipynb`.
 
 ---
