@@ -8,7 +8,7 @@ The focus isn't on achieving accurate odometry, but on observing how small model
 
 ## About This Project
 
-**tinyml-imu-odom** is an experimental engineering pipeline for evaluating motion-related decisions in IMU-based TinyML systems under embedded constraints.
+This is an experimental engineering pipeline for evaluating motion-related decisions in IMU-based TinyML systems under embedded constraints.
 
 The project focuses on observing how IMU-only models behave, fail, and degrade when deployed on resource-limited hardware, using controlled datasets and reproducible workflows across training (Python) and deployment (Go) environments.
 
