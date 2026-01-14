@@ -2,7 +2,7 @@
 
 > This repository contains an experimental engineering pipeline for evaluating motion-related decisions in IMU-based TinyML systems under embedded constraints.
 
-> The focus is not on achieving accurate odometry, but on observing how small models behave, fail, and degrade when deployed on resource-limited hardware, using reproducible workflows and controlled datasets.
+The focus isn't on achieving accurate odometry, but on observing how small models behave, fail, and degrade when deployed on resource-limited hardware, using reproducible workflows and controlled datasets.
 
 ---
 
@@ -32,7 +32,7 @@ The MAGF-ID dataset is used in this project as a methodological reference and co
 
 This project explicitly does not aim to solve global localization, SLAM, or full navigation problems. Its scope is intentionally constrained to the evaluation of minimal motion-related decisions derived from IMU data under embedded and real-time constraints.
 
-The initial focus is on binary motion state decisions (e.g., moving vs. stationary), treated as observable system outputs rather than accurate pose estimates. This limitation allows the project to expose decision instability, error patterns, and degradation effects caused by sensor noise, model compression, and resource constraints.
+The initial focus is on binary motion state decisions (moving vs. stationary), treated as observable system outputs rather than accurate pose estimates. This limitation allows the project to expose decision instability, error patterns, and degradation effects caused by sensor noise, model compression, and resource constraints.
 
 By restricting the problem to small models, short temporal windows, and IMU-only inputs, the project prioritizes reproducibility and behavioral analysis over performance optimization or completeness.
 
