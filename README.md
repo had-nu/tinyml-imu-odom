@@ -1,120 +1,43 @@
-# TinyML Inertial Odometry for Indoor Robotics
+# TinyML IMU-Based Motion Decision Pipeline
 
-> Aprendizagem de odometria baseada em IMU com foco em modelos TinyML e pipeline completo de engenharia.
+> This repository contains an experimental engineering pipeline for evaluating motion-related decisions in IMU-based TinyML systems under embedded constraints.
 
-[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/)
-[![Go](https://img.shields.io/badge/go-1.21-cyan)](https://golang.org/)
-[![Jupyter](https://img.shields.io/badge/jupyter-notebooks-orange)](https://jupyter.org/)
-[![TensorFlow Lite Micro](https://img.shields.io/badge/TFLite-Micro-yellow)](https://www.tensorflow.org/lite/microcontrollers)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+> The focus is not on achieving accurate odometry, but on observing how small models behave, fail, and degrade when deployed on resource-limited hardware, using reproducible workflows and controlled datasets.
 
 ---
 
 ## About This Project
 
-**tinyml-imu-odom** é um projeto educacional, técnico e incremental que estuda o ciclo completo de desenvolvimento de um modelo de *odometria aprendida (IMU → Δpose)* utilizando princípios de TinyML e metodologias inspiradas no pipeline profissional aplicado na engenharia de robôs móveis.
+**tinyml-imu-odom** is an experimental engineering pipeline for evaluating motion-related decisions in IMU-based TinyML systems under embedded constraints.
 
-A iniciativa nasce dentro do contexto académico e avança para um nível pré-industrial, com documentação formal, fases estruturadas, experimentação rigorosa e comparação entre ambientes de treino (Python) e deploy (Go).
+The project focuses on observing how IMU-only models behave, fail, and degrade when deployed on resource-limited hardware, using controlled datasets and reproducible workflows across training (Python) and deployment (Go) environments.
 
-Aqui o objetivo não é “construir um modelo”, mas *aprender como um engenheiro constrói, valida e documenta um pipeline completo*, aplicável a cenários reais de navegação indoor sem GPS.
+Rather than targeting accurate odometry or complete navigation stacks, the system is intentionally limited in scope to expose decision instability, error patterns, and practical constraints relevant to embedded inertial systems operating without GPS.
 
 ---
 
 ## Context & Motivation
 
-Robôs que operam em ambientes *indoor* — fábricas, armazéns, corredores, zonas subterrâneas — não têm acesso a GPS. Neste contexto, a navegação depende de:
+Autonomous and semi-autonomous systems operating in indoor environments rely heavily on inertial sensing to make real-time decisions about motion and system state. In many practical scenarios, the critical requirement is not precise localization, but the ability to reliably detect and reason about basic motion-related conditions under uncertainty.
 
-- sensores inerciais (IMUs),
-- modelos capazes de estimar movimento incremental,
-- pipelines eficientes e interpretáveis,
-- capacidade de execução embarcada em hardware limitado.
+When deployed on embedded or resource-limited hardware, IMU-based models are subject to sensor noise, drift, limited temporal context, and strict constraints on memory, latency, and energy consumption. These constraints directly affect the stability of motion-related decisions, especially when models are reduced to TinyML-scale representations.
 
-O projeto utiliza como referência conceitual o *MAGF-ID – Multiple and Gyro-Free Inertial Dataset (2024)*, um dos datasets mais avançados em experimentos com IMU para robótica.  
-Embora o MAGF-ID utilize múltiplas IMUs de alta precisão, GNSS-RTK e hardware robusto, neste repositório adotamos o mesmo rigor metodológico, porém em *escala TinyML*, com modelos leves, janelas pequenas e potencial de execução em microcontroladores.
+Despite extensive research on inertial odometry and learning-based motion estimation, less attention is given to how small, embedded models behave, fail, or degrade when used as decision-making components rather than high-accuracy estimators. This gap becomes particularly relevant for safety, monitoring, and control tasks in low-cost robotic systems, where incorrect motion decisions may have disproportionate operational impact.
 
----
-
-## Three Complementary Perspectives
-
-### 1. Pipeline completo de Engenharia de ML
-O projeto segue um ciclo dividido em fases claras — Problem Definition → Data Acquisition → Exploratory Analysis → Modeling → Evaluation → Deploy — permitindo documentar cada decisão, hipótese e limitação do processo.
-
-### 2. Uso do MAGF-ID como laboratório metodológico
-O MAGF-ID fornece referência para:
-- arquiteturas sensoriais,
-- sincronização temporal,
-- organização de dados inerciais,
-- definição de ground truth,
-- construção de Δpose supervisionado.
-
-> *Este repositório não copia o MAGF-ID, mas usa seu rigor como padrão de qualidade.*
-
-### 3. TinyML como forma técnica de síntese
-Modelos pequenos exigem clareza física:
-- interpretação correta das acelerações,
-- integração de giroscópio,
-- janelas temporais coerentes,
-- features fisicamente significativas.
-
-TinyML não pode ser pensado como um *“modelo pequeno para rodar em microcontroladores"*, mas como um mecanismo de destilação conceptual que reduz problemas complexos de navegação ao núcleo mínimo que pode ser resolvido de forma estável, explicável e eficiente. TinyML é uma restrição de engenharia: memória mínima, latência mínima, interpretabilidade máxima e estabilidade física. É aprender o que realmente importa para estimar movimento.
-
-### 4. Python para pesquisa, Go para deploy
-O ciclo se divide em:
-- **Python** → exploração, treino e validação;
-- **Go** → inferência embarcada, latência previsível e aplicações reais.
+The MAGF-ID dataset is used in this project as a methodological reference and controlled laboratory for inertial signal analysis. Its role is not to provide state-of-the-art performance benchmarks, but to support reproducible experimentation and systematic observation of model behavior under constrained conditions.
 
 ---
 
 ## Project Scope
 
-O foco técnico imediato é:
+This project explicitly does not aim to solve global localization, SLAM, or full navigation problems. Its scope is intentionally constrained to the evaluation of minimal motion-related decisions derived from IMU data under embedded and real-time constraints.
 
-- Construir um pipeline supervisionado para *Δpose local* (Δx, Δy, Δθ) a partir de janelas IMU.
-- Treinar modelos *TinyML-compatíveis* (MLP/CNN/GRU pequenos).
-- Preparar a infraestrutura para exportação do modelo (TFLite → Go).
-- Realizar análise exploratória detalhada dos sinais do ROSbot no MAGF-ID.
-- Construir documentação clara e incremental em `docs/` seguindo as fases da UC.
+The initial focus is on binary motion state decisions (e.g., moving vs. stationary), treated as observable system outputs rather than accurate pose estimates. This limitation allows the project to expose decision instability, error patterns, and degradation effects caused by sensor noise, model compression, and resource constraints.
 
-O projeto *não inclui*, nesta primeira versão:
-- SLAM,
-- mapeamento global,
-- navegação completa,
-- fusão com câmera ou LiDAR,
-- firmware final para hardware real.
-
-Esses tópicos são possíveis extensões futuras.
-
----
-
-## Repository Structure
-
-```
-tinyml-imu-odom/
-├── data/ # dados brutos e processados (não versionar raw)
-├── docs/ # documentação por fases
-├── ref/ # referências bibliográficas
-├── python/ # notebooks, treino e experimentação
-├── go/ # deploy e inferência em Go
-├── models/ # artefatos de modelos (weights, tflite, etc.)
-├── scripts/ # scripts auxiliares
-└── README.md
-```
-
----
-
-## Status
-
-Early-stage.  
-Atualmente na *Fase 3: Exploratory Data Analysis (EDA)*.
-
-Próximos passos:
-
- [✓] 1. Registrar a definição do problema em `docs/01_problem_definition.md`.  
- [✓] 2. Documentar aquisição e organização dos dados em `docs/02_data_acquisition.md`.  
- [ ] 3. Iniciar a análise exploratória no notebook `01_explore_magfid_rosbot.ipynb`.
+By restricting the problem to small models, short temporal windows, and IMU-only inputs, the project prioritizes reproducibility and behavioral analysis over performance optimization or completeness.
 
 ---
 
 ## License
 
-MIT License — veja o arquivo LICENSE.
+MIT License — see the LICENSE file.
